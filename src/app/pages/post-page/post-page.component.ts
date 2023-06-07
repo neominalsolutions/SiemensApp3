@@ -3,15 +3,30 @@ import { PostsService } from '../services/posts.service';
 import { Subscription, forkJoin, switchMap } from 'rxjs';
 import { Posts } from '../models/posts';
 import { ActivatedRoute } from '@angular/router';
+import { CounterStateService } from '../_states/counter-state.service';
 
 @Component({
   templateUrl: './post-page.component.html',
   styleUrls: ['./post-page.component.scss'],
 })
 export class PostPageComponent implements OnInit, OnDestroy {
+  onIncrementByValue(inpRef: HTMLInputElement) {
+    this.cs.IncrementByValue(Number(inpRef.value));
+  }
+  onDecrement() {
+    this.cs.Decrement();
+  }
+  onIncrement() {
+    this.cs.Increment();
+  }
+
   private subs: Subscription[] = [];
 
-  constructor(private postService: PostsService, private ac: ActivatedRoute) {}
+  constructor(
+    private postService: PostsService,
+    private ac: ActivatedRoute,
+    private cs: CounterStateService
+  ) {}
 
   ngOnDestroy(): void {
     this.subs.forEach((sb) => {

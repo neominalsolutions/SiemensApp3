@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CounterStateService } from './pages/_states/counter-state.service';
 
 export class QueryStringMaskHelper {
   public static Mask(value: any) {
@@ -17,6 +18,17 @@ export class QueryStringMaskHelper {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+
+  /**
+   *
+   */
+
+
+  constructor(public cs: CounterStateService) {
+
+
+  }
+
   queryString = QueryStringMaskHelper.Mask({ id: 1, name: 'test' });
 
   title = 'SiemensApp3';
