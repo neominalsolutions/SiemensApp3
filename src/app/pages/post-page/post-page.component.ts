@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PostsService } from '../services/posts.service';
 import { Subscription, forkJoin, switchMap } from 'rxjs';
 import { Posts } from '../models/posts';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './post-page.component.html',
@@ -10,7 +11,7 @@ import { Posts } from '../models/posts';
 export class PostPageComponent implements OnInit, OnDestroy {
   private subs: Subscription[] = [];
 
-  constructor(private postService: PostsService) {}
+  constructor(private postService: PostsService, private ac: ActivatedRoute) {}
 
   ngOnDestroy(): void {
     this.subs.forEach((sb) => {
@@ -67,6 +68,9 @@ export class PostPageComponent implements OnInit, OnDestroy {
 
   posts: Posts[] = [];
   ngOnInit(): void {
+    const qParams = this.ac.snapshot.queryParams;
+    console.log('qParams', qParams);
+
     this.loadData();
     // const sb = this.postService.getPosts().subscribe({
     //   next: (data: Posts[]) => {
